@@ -45,16 +45,10 @@ public enum DatabaseType {
      * @return 数据库类型枚举
      */
     public static DatabaseType valueFrom(final String databaseProductName) {
-        Optional<DatabaseType> databaseTypeOptional = Iterators.tryFind(Arrays.asList(DatabaseType.values()).iterator(), new Predicate<DatabaseType>() {
-            @Override
-            public boolean apply(final DatabaseType input) {
-                return input.productName.equals(databaseProductName);
-            }
-        });
-        if (databaseTypeOptional.isPresent()) {
-            return databaseTypeOptional.get();
-        } else {
-            throw new RuntimeException("Unsupported database:" + databaseProductName);
+        for(DatabaseType type : DatabaseType.values()){
+            if(type.productName.equals(databaseProductName))
+                return type ;
         }
+        throw new RuntimeException("Unsupported database:" + databaseProductName);
     }
 }
